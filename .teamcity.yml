@@ -1,0 +1,110 @@
+jobs:
+  Job1:
+    name: Job 1
+    steps:
+      - type: script
+        name: Sahil
+        working-directory: root
+        script-content: |-
+          version: "2021.1"
+
+          # Define the project
+          project:
+            name: Kasukabe Bot Project
+
+            # Define build configurations
+            buildType:
+              id: RunPythonScript
+              name: Run Python Script
+              description: This build configuration runs the Python script for the Telegram bot.
+
+              # Define the steps to execute
+              steps:
+                - name: Run Python Bot
+                  type: script
+                  scriptContent: |
+                    #!/bin/bash
+                    
+                    # Set up a virtual environment (optional, for isolation)
+                    python3 -m venv venv
+                    source venv/bin/activate
+
+                    # Install required dependencies
+                    pip install -r requirements.txt
+
+                    # Run the Python bot script
+                    python3 m.py
+                  dockerImage: python:3.9
+
+              # Define the triggers for this build
+              triggers:
+                - schedule:
+                    # Trigger the build on a schedule (example: run every hour)
+                    cronExpression: "0 * * * *"
+                    enable: true
+
+              # Define the version control system (e.g., Git)
+              vcs:
+                root:
+                  id: https://github.com/Sahil70946/Kyc.git
+                  name: Sahil70946
+                  url: https://github.com/Sahil70946/Kyc.git
+                  branch: refs/heads/main
+
+          # Optional: If using artifacts, you can configure them here.
+          artifacts:
+            - "*.log"  # Example: Collect log files
+      - type: script
+        name: Kyc
+        working-directory: main
+        script-content: |-
+          version: "2021.1"
+
+          # Define the project
+          project:
+            name: Kasukabe Bot Project
+
+            # Define build configurations
+            buildType:
+              id: RunPythonScript
+              name: Run Python Script
+              description: This build configuration runs the Python script for the Telegram bot.
+
+              # Define the steps to execute
+              steps:
+                - name: Run Python Bot
+                  type: script
+                  scriptContent: |
+                    #!/bin/bash
+                    
+                    # Set up a virtual environment (optional, for isolation)
+                    python3 -m venv venv
+                    source venv/bin/activate
+
+                    # Install required dependencies
+                    pip install -r requirements.txt
+
+                    # Run the Python bot script
+                    python3 m.py
+                  dockerImage: python:3.9
+
+              # Define the triggers for this build
+              triggers:
+                - schedule:
+                    # Trigger the build on a schedule (example: run every hour)
+                    cronExpression: "0 * * * *"
+                    enable: true
+
+              # Define the version control system (e.g., Git)
+              vcs:
+                root:
+                  id: https://github.com/Sahil70946/Kyc.git
+                  name: Kyc
+                  url: https://github.com/Sahil70946/Kyc.git
+                  branch: refs/heads/main
+
+          # Optional: If using artifacts, you can configure them here.
+          artifacts:
+            - "*.log"  # Example: Collect log files
+    runs-on: Ubuntu-22.04-Medium-Arm64
+    enable-dependency-cache: true
